@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Email Confirmed Successfully</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @keyframes checkmarkAnimation {
+            0% { transform: scale(0); opacity: 0; }
+            50% { transform: scale(1.2); opacity: 1; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+        
+        .checkmark-animate {
+            animation: checkmarkAnimation 1s ease-out forwards;
+        }
+        
+        .confetti {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background-color: #f0f;
+            opacity: 0;
+        }
+        
+        @keyframes confettiFall {
+            0% { transform: translateY(-100px) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(100vh) rotate(360deg); opacity: 0; }
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-blue-50 to-indigo-100 min-h-screen flex items-center justify-center p-4">
+    <div class="max-w-md w-full bg-white rounded-xl shadow-lg overflow-hidden transition-all duration-500 transform hover:scale-[1.02]">
+        <div class="p-8 text-center">
+            <div class="relative flex justify-center mb-6">
+                <div class="w-24 h-24 bg-green-100 rounded-full flex items-center justify-center">
+                    <i class="fas fa-check text-green-500 text-5xl checkmark-animate"></i>
+                </div>
+                <div class="absolute -top-2 -right-2 w-10 h-10 bg-yellow-100 rounded-full flex items-center justify-center">
+                    <i class="fas fa-envelope text-yellow-500 text-sm"></i>
+                </div>
+            </div>
+            
+            <h1 class="text-2xl font-bold text-gray-800 mb-2">Email Confirmed!</h1>
+            <p class="text-gray-600 mb-6">Your email address has been successfully verified. Thank you for completing this important step.</p>
+            
+            <div class="bg-blue-50 rounded-lg p-4 mb-6 text-left">
+                <div class="flex items-center mb-2">
+                    <i class="fas fa-check-circle text-green-500 mr-2"></i>
+                    <span class="text-sm font-medium text-gray-700">Verified email address</span>
+                </div>
+                <div class="flex items-center">
+                    <i class="fas fa-check-circle text-green-500 mr-2"></i>
+                    <span class="text-sm font-medium text-gray-700">Full account access granted</span>
+                </div>
+            </div>
+            
+            <button id="continueBtn" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-medium py-3 px-4 rounded-lg transition duration-300 flex items-center justify-center">
+                Continue to Dashboard
+                <i class="fas fa-arrow-right ml-2"></i>
+            </button>
+            
+            <div class="mt-6 text-sm text-gray-500">
+                <p>Need help? <a href="#" class="text-indigo-600 hover:underline">Contact support</a></p>
+            </div>
+        </div>
+        
+        <div class="bg-gray-50 px-8 py-4 text-center">
+            <p class="text-xs text-gray-500">© 2023 Your Company. All rights reserved.</p>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Create confetti effect
+            function createConfetti() {
+                const colors = ['#f0f', '#0ff', '#ff0', '#0f0', '#00f'];
+                const container = document.body;
+                
+                for (let i = 0; i < 50; i++) {
+                    const confetti = document.createElement('div');
+                    confetti.className = 'confetti';
+                    confetti.style.left = Math.random() * 100 + 'vw';
+                    confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                    confetti.style.width = Math.random() * 8 + 5 + 'px';
+                    confetti.style.height = Math.random() * 8 + 5 + 'px';
+                    confetti.style.animation = `confettiFall ${Math.random() * 3 + 2}s linear forwards`;
+                    container.appendChild(confetti);
+                    
+                    // Remove confetti after animation
+                    setTimeout(() => {
+                        confetti.remove();
+                    }, 5000);
+                }
+            }
+            
+            // Trigger confetti after a short delay
+            setTimeout(createConfetti, 800);
+            
+            // Button click effect
+            const continueBtn = document.getElementById('continueBtn');
+            continueBtn.addEventListener('click', function() {
+                // Simulate navigation
+                this.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i> Redirecting...';
+                setTimeout(() => {
+                    alert('Redirecting to dashboard...');
+                    // In a real app, you would redirect here
+                    // window.location.href = '/dashboard';
+                }, 1500);
+            });
+        });
+    </script>
+</body>
+</html>
